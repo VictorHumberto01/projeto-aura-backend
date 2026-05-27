@@ -93,6 +93,13 @@ Evite criar uma única aplicação gigante. Divida o sistema em apps modulares u
 - **Class-Based Views (CBVs):** Prefira usar `ModelViewSet` ou views genéricas do DRF (`ListAPIView`, `CreateAPIView`, etc.) pois elas integram nativamente com o gerador do Swagger e reduzem a escrita de código boilerplate.
 - **Documentação de Rotas:** Ao criar novos endpoints, utilize os decorators do `drf-spectacular` (como `@extend_schema`) para documentar parâmetros de query, cabeçalhos ou formatos de resposta customizados.
 
+### 5. Arquitetura Orientada ao Domínio (Domain-Driven Design - DDD)
+Para lidar de forma robusta com regras complexas (como o cálculo de disponibilidade da agenda), adotamos princípios do **DDD** no design do código:
+- **Domínios/Subdomínios como Apps:** Cada app Django deve mapear um domínio ou subdomínio de negócio claro (ex: `bookings` representa o domínio de agendamento).
+- **Separação de Lógica (Domain Services):** Evite programar regras de negócio pesadas diretamente nas views do Django ou em serializers. Crie serviços de domínio específicos (ex: arquivos `services.py` dentro dos apps) que contenham funções e classes puras para coordenar essas regras.
+- **Entidades e Agregados:** Os Models do Django funcionam como a nossa camada de persistência. A inteligência de transição de estados das entidades (ex: cancelar um agendamento, dar baixa em produto) deve pertencer a métodos dos próprios Models ou a objetos agregados.
+- **Linguagem Ubíqua:** Utilize termos de negócio reais nos nomes de modelos, variáveis e métodos (ex: `Booking`, `Professional`, `Slot`, `Service`).
+
 ---
 
 ## 🛠️ Desenvolvimento Sem Docker (Local)
