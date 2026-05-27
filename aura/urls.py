@@ -15,12 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from .views import health_check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # Módulo de Contas / Tenants
+    path('api/', include('accounts.api.urls')),
+
     
     # Rota de Health Check
     path('api/health/', health_check, name='health_check'),
