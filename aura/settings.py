@@ -55,6 +55,12 @@ INSTALLED_APPS = [
     
     # Local apps
     'accounts',
+    'profiles',
+    'catalog',
+    'scheduling',
+    'appointments',
+    'inventory',
+    'reports',
 ]
 
 
